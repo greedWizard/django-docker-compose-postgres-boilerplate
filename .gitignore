@@ -4,3 +4,4 @@
 core/project/settings/local.py
 static/*
 !static/.gitkeep
+*.sqlite*

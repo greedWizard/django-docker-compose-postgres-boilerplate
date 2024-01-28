@@ -6,7 +6,7 @@ from core.apps.products.entities.products import Product as ProductEntity
 
 
 class ProductSchema(BaseModel):
-    id: int
+    id: int  # noqa
     title: str
     description: str
     created_at: datetime

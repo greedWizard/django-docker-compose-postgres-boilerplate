@@ -4,7 +4,7 @@ from datetime import datetime
 
 @dataclass
 class Product:
-    id: int
+    id: int  # noqa
     title: str
     description: str
     created_at: datetime

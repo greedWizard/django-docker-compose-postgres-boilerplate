@@ -31,5 +31,5 @@ class Product(TimedBaseModel):
         return self.title
 
     class Meta:
-        verbose_name = 'Товар'
-        verbose_name_plural = 'Товары'
+        verbose_name = 'Product'
+        verbose_name_plural = 'Products'

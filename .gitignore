@@ -5,3 +5,5 @@ core/project/settings/local.py
 static/*
 !static/.gitkeep
 *.sqlite*
+.venv/
+__pycache__/

@@ -10,8 +10,8 @@ services:
       - "${DJANGO_PORT}:8000"
     command: "sh /entrypoint.sh"
     env_file:
-     - ../.env
+      - ../.env
     depends_on:
-     - postgres
+      - postgres
     volumes:
       - ..:/app/

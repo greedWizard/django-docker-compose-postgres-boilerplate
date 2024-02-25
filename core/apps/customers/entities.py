@@ -3,6 +3,6 @@ from datetime import datetime
 
 
 @dataclass
-class CustomerEntity:
+class Customer:
     phone: str
     created_at: datetime

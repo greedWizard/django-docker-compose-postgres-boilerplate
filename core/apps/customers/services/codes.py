@@ -6,7 +6,7 @@ from abc import (
 
 from django.core.cache import cache
 
-from core.apps.customers.entities import CustomerEntity
+from core.apps.customers.entities import Customer
 from core.apps.customers.exceptions.codes import (
     CodeNotFoundException,
     CodesNotEqualException,
@@ -15,21 +15,21 @@ from core.apps.customers.exceptions.codes import (
 
 class BaseCodeService(ABC):
     @abstractmethod
-    def generate_code(self, customer: CustomerEntity) -> str:
+    def generate_code(self, customer: Customer) -> str:
         ...
 
     @abstractmethod
-    def validate_code(self, code: str, customer: CustomerEntity) -> None:
+    def validate_code(self, code: str, customer: Customer) -> None:
         ...
 
 
 class DjangoCacheCodeService(BaseCodeService):
-    def generate_code(self, customer: CustomerEntity) -> str:
+    def generate_code(self, customer: Customer) -> str:
         code = str(random.randint(100000, 999999))  # noqa
         cache.set(customer.phone, code)
         return code
 
-    def validate_code(self, code: str, customer: CustomerEntity) -> None:
+    def validate_code(self, code: str, customer: Customer) -> None:
         cached_code = cache.get(customer.phone)
 
         if cached_code is None:

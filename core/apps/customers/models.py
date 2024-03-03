@@ -23,7 +23,7 @@ class Customer(TimedBaseModel):
         return self.phone
 
     def to_entity(self) -> Customer:
-        return Customer(phone=self.phone, created_at=self.created_at)
+        return Customer(phone=self.phone, created_at=self.created_at, id=self.pk)
 
     class Meta:
         verbose_name = 'Customer'

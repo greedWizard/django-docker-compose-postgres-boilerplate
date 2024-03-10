@@ -29,6 +29,8 @@ from core.apps.products.services.reviews import (
     BaseReviewValidatorService,
     ComposedReviewValidatorService,
     ORMReviewService,
+    ReviewRatingValidatorService,
+    SingleReviewValidatorService,
 )
 from core.apps.products.use_cases.reviews.create import CreateReviewUseCase
 
@@ -57,7 +59,18 @@ def _initialize_container() -> punq.Container:
     )
     container.register(BaseAuthService, AuthService)
     container.register(BaseReviewService, ORMReviewService)
-    container.register(BaseReviewValidatorService, ComposedReviewValidatorService, validators=[])
+    container.register(SingleReviewValidatorService)
+    container.register(ReviewRatingValidatorService)
+
+    def build_validators() -> BaseReviewValidatorService:
+        return ComposedReviewValidatorService(
+            validators=[
+                container.resolve(SingleReviewValidatorService),
+                container.resolve(ReviewRatingValidatorService),
+            ],
+        )
+
+    container.register(BaseReviewValidatorService, factory=build_validators)
     container.register(CreateReviewUseCase)
 
     return container

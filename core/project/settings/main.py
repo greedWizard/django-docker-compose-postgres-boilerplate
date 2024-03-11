@@ -152,7 +152,10 @@ LOGGING = {
     'disable_existing_loggers': True,
     'formatters': {
         'verbose': {
-            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s',
+            'format': (
+                '%(levelname)s %(asctime)s %(module)s %(process)d '
+                '%(thread)d %(message)s error_meta:\n%(error_meta)s'
+            ),
         },
     },
     'handlers': {
@@ -167,18 +170,7 @@ LOGGING = {
         },
     },
     'loggers': {
-        'django.db.backends': {
-            'level': 'ERROR',
-            'handlers': ['console'],
-            'propagate': False,
-        },
-        'mysite': {
-            'level': 'WARNING',
-            'handlers': ['elasticapm'],
-            'propagate': False,
-        },
-        # Log errors from the Elastic APM module to the console (recommended)
-        'elasticapm.errors': {
+        'django.request': {
             'level': 'ERROR',
             'handlers': ['console'],
             'propagate': False,

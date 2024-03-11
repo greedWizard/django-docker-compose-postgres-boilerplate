@@ -61,6 +61,13 @@ services:
       retries: 20
       test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://localhost:5601/api/status
 
+  fluent-bit:
+    image: fluent/fluent-bit
+    volumes:
+      - ./docker_compose/fluent-bit/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
+    depends_on:
+      - elasticsearch
+
 volumes:
   esdata:
     driver: local

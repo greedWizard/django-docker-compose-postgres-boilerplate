@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 from core.apps.common.models import TimedBaseModel
@@ -17,6 +18,11 @@ class Product(TimedBaseModel):
         verbose_name='Виден ли товар в каталоге',
         default=True,
     )
+    tags = ArrayField(
+        verbose_name='Теги товара',
+        default=list,
+        base_field=models.CharField(max_length=100),
+    )
 
     def to_entity(self) -> ProductEntity:
         return ProductEntity(
@@ -25,6 +31,7 @@ class Product(TimedBaseModel):
             description=self.description,
             created_at=self.created_at,
             updated_at=self.updated_at,
+            tags=self.tags,
         )
 
     def __str__(self) -> str:
